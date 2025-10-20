@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker Hand Battle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body class="text-white p-4 antialiased">
+
+    <div class="container mx-auto max-w-7xl">
+        <header class="text-center py-6 mb-6">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-wider header-glow text-amber-300">
+                POKER HAND BATTLE
+            </h1>
+        </header>
+
+        <main class="flex flex-col lg:flex-row justify-around items-center lg:items-start gap-8">
+
+            <div id="player1-panel"
+                class="w-full max-w-xs md:max-w-sm text-center p-4 rounded-xl border-2 border-transparent transition-all duration-500">
+                <h2 class="text-2xl font-semibold mb-4 text-green-400">Player 1</h2>
+                <div class="flex justify-center gap-4">
+                    <div class="card-selector-container" data-player="1" data-card-index="0"></div>
+                    <div class="card-selector-container" data-player="1" data-card-index="1"></div>
+                </div>
+                <div id="player1-result" class="mt-4 text-lg h-8 font-semibold text-gray-300"></div>
+            </div>
+
+            <div class="w-full max-w-2xl text-center">
+                <h2 class="text-2xl font-semibold mb-4 text-amber-200">Community Cards (Flop, Turn, River)</h2>
+                <div class="grid grid-cols-3 md:grid-cols-5 gap-4">
+                    <div class="card-selector-container" data-player="board" data-card-index="0"></div>
+                    <div class="card-selector-container" data-player="board" data-card-index="1"></div>
+                    <div class="card-selector-container" data-player="board" data-card-index="2"></div>
+                    <div class="card-selector-container" data-player="board" data-card-index="3"></div>
+                    <div class="card-selector-container" data-player="board" data-card-index="4"></div>
+                </div>
+                <p class="text-xs text-gray-400 mt-4 italic">Note: Selecting a card removes it from all other dropdowns.
+                </p>
+            </div>
+
+            <div id="player2-panel"
+                class="w-full max-w-xs md:max-w-sm text-center p-4 rounded-xl border-2 border-transparent transition-all duration-500">
+                <h2 class="text-2xl font-semibold mb-4 text-red-400">Player 2</h2>
+                <div class="flex justify-center gap-4">
+                    <div class="card-selector-container" data-player="2" data-card-index="0"></div>
+                    <div class="card-selector-container" data-player="2" data-card-index="1"></div>
+                </div>
+                <div id="player2-result" class="mt-4 text-lg h-8 font-semibold text-gray-300"></div>
+            </div>
+
+        </main>
+
+        <footer class="text-center mt-8">
+            <div id="winner-display" class="text-2xl md:text-3xl font-bold h-10 mb-4 transition-all"></div>
+            <div class="flex justify-center gap-4">
+                <button id="evaluate-btn"
+                    class="bg-amber-500 hover:bg-amber-400 text-gray-900 font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200 disabled:bg-gray-600 disabled:cursor-not-allowed disabled:scale-100"
+                    disabled>
+                    Check Winner
+                </button>
+                <button id="reset-btn"
+                    class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200">
+                    Reset All
+                </button>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0f301d;
+    background-image: radial-gradient(circle at center, #1a4d2b, #0f301d);
+    min-height: 100vh;
+}
+
+.header-glow {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.card-selector {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+.card-selector:hover {
+    border-color: rgba(255, 215, 0, 0.6);
+}
+
+.card-selector.selected {
+    border-color: #fbbF24;
+    background-color: rgba(34, 197, 94, 0.2);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    background-color: #1f2937;
+    border: 1px solid #4b5563;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdown-menu.show {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.dropdown-item {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: #374151;
+}
+
+.dropdown-item.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background-color: transparent;
+    text-decoration: line-through;
+}
+
+.suit-h,
+.suit-d {
+    color: #ef4444;
+}
+
+/* Red suits */
+.suit-s,
+.suit-c {
+    color: #d1d5db;
+}
+
+/* White/Grey suits */
+/* Custom Scrollbar */
+.dropdown-menu::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dropdown-menu::-webkit-scrollbar-track {
+    background: #1f2937;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 4px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+}
+
+/* Winner Visuals */
+.winner-p1 {
+    box-shadow: 0 0 20px 5px rgba(34, 197, 94, 0.6);
+    border-color: #22c55e;
+}
+
+.winner-p2 {
+    box-shadow: 0 0 20px 5px rgba(239, 68, 68, 0.6);
+    border-color: #ef4444;
+}
+
+.winner-tie {
+    box-shadow: 0 0 20px 5px rgba(59, 130, 246, 0.6);
+    border-color: #3b82f6;
+}
