@@ -9,11 +9,25 @@ body {
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 215, 0, 0.4);
 }
 
+/* ---------------------------------- */
+/* CARD SIZE REDUCTION */
+/* ---------------------------------- */
 .card-selector {
+    /* Reduced Size: from w-20 h-28 to w-14 h-20 */
+    width: 3.5rem; /* 56px */
+    height: 5rem; /* 80px */
     background-color: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 4px 6px rgba(0, 0, 0, 0.2);
     transition: all 0.2s ease-in-out;
+}
+
+.card-selector .text-4xl {
+    font-size: 1.75rem; /* Reduced rank size */
+}
+
+.card-selector .text-2xl {
+    font-size: 1.25rem; /* Reduced suit size */
 }
 
 .card-selector:hover {
@@ -34,6 +48,8 @@ body {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
     max-height: 200px;
     overflow-y: auto;
+    width: 14rem; /* Adjusted dropdown width */
+    font-size: 0.875rem; /* Reduced text size */
 }
 
 .dropdown-menu.show {
@@ -62,13 +78,11 @@ body {
     color: #ef4444;
 }
 
-/* Red suits */
 .suit-s,
 .suit-c {
     color: #d1d5db;
 }
 
-/* White/Grey suits */
 /* Custom Scrollbar */
 .dropdown-menu::-webkit-scrollbar {
     width: 8px;
@@ -87,18 +101,128 @@ body {
     background: #6b7280;
 }
 
-/* Winner Visuals */
-.winner-p1 {
-    box-shadow: 0 0 20px 5px rgba(34, 197, 94, 0.6);
+
+/* ---------------------------------- */
+/* POKER TABLE LAYOUT */
+/* ---------------------------------- */
+
+#poker-table-container {
+    position: relative;
+    width: 100%;
+    max-width: 960px; /* Max table width */
+    height: 500px;    /* Fixed height for the table area */
+    background-color: #1a4d2b; /* Dark green table felt */
+    border: 10px solid #794a00; /* Dark brown/gold edge */
+    border-radius: 50% / 60%; /* Oval shape */
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8) inset, 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.board-center-area {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.board-center-area .card-selector-container {
+    margin: 0 4px; /* Slightly tighter board cards */
+}
+
+/* The player-positions container uses a 3x3 grid to define 9 positions */
+#players-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* Allow clicks to pass through to elements within */
+}
+
+.player-panel {
+    pointer-events: auto; /* Re-enable clicks for the panel and its children */
+    /* Add default styling for dynamic players */
+    background-color: rgba(0, 0, 0, 0.2);
+    min-width: 150px;
+    max-width: 150px;
+}
+
+/* Player Seating Positions (1 to 9) */
+/* Pos 1: Bottom Center (Dealer position) */
+.pos-1 { grid-area: 3 / 2 / 4 / 3; align-self: end; justify-self: center; transform: translateY(50%); }
+/* Pos 2: Bottom Left */
+.pos-2 { grid-area: 3 / 1 / 4 / 2; align-self: end; justify-self: start; transform: translate(-25%, 50%); }
+/* Pos 3: Bottom Right */
+.pos-3 { grid-area: 3 / 3 / 4 / 4; align-self: end; justify-self: end; transform: translate(25%, 50%); }
+/* Pos 4: Left Middle */
+.pos-4 { grid-area: 2 / 1 / 3 / 2; align-self: center; justify-self: start; transform: translateX(-50%); }
+/* Pos 5: Top Left */
+.pos-5 { grid-area: 1 / 1 / 2 / 2; align-self: start; justify-self: start; transform: translate(-25%, -50%); }
+/* Pos 6: Top Center */
+.pos-6 { grid-area: 1 / 2 / 2 / 3; align-self: start; justify-self: center; transform: translateY(-50%); }
+/* Pos 7: Top Right */
+.pos-7 { grid-area: 1 / 3 / 2 / 4; align-self: start; justify-self: end; transform: translate(25%, -50%); }
+/* Pos 8: Right Middle */
+.pos-8 { grid-area: 2 / 3 / 3 / 4; align-self: center; justify-self: end; transform: translateX(50%); }
+/* Pos 9: Center Left (For 9-handed game, this spot is sometimes omitted or near the bottom) */
+.pos-9 { grid-area: 2 / 2 / 3 / 3; align-self: start; justify-self: center; transform: translateY(-30%); }
+
+
+/* ---------------------------------- */
+/* WINNER VISUALS (Modified to use new generic panel class and smaller glow) */
+/* ---------------------------------- */
+.winner-p-1 {
+    box-shadow: 0 0 15px 3px rgba(34, 197, 94, 0.7); /* player-green */
     border-color: #22c55e;
 }
 
-.winner-p2 {
-    box-shadow: 0 0 20px 5px rgba(239, 68, 68, 0.6);
+.winner-p-2 {
+    box-shadow: 0 0 15px 3px rgba(239, 68, 68, 0.7); /* player-red */
     border-color: #ef4444;
 }
 
-.winner-tie {
-    box-shadow: 0 0 20px 5px rgba(59, 130, 246, 0.6);
+.winner-p-3 {
+    box-shadow: 0 0 15px 3px rgba(59, 130, 246, 0.7); /* player-blue */
     border-color: #3b82f6;
+}
+
+.winner-p-4 {
+    box-shadow: 0 0 15px 3px rgba(234, 179, 8, 0.7); /* player-yellow */
+    border-color: #eab308;
+}
+
+.winner-p-5 {
+    box-shadow: 0 0 15px 3px rgba(168, 85, 247, 0.7); /* player-purple */
+    border-color: #a855f7;
+}
+
+.winner-p-6 {
+    box-shadow: 0 0 15px 3px rgba(236, 72, 153, 0.7); /* player-pink */
+    border-color: #ec4899;
+}
+
+.winner-p-7 {
+    box-shadow: 0 0 15px 3px rgba(6, 182, 212, 0.7); /* player-cyan */
+    border-color: #06b6d4;
+}
+
+.winner-p-8 {
+    box-shadow: 0 0 15px 3px rgba(249, 115, 22, 0.7); /* player-orange */
+    border-color: #f97316;
+}
+
+.winner-p-9 {
+    box-shadow: 0 0 15px 3px rgba(99, 102, 241, 0.7); /* player-indigo */
+    border-color: #6366f1;
+}
+
+.winner-tie {
+    box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.7);
+    border-color: #ffffff;
 }

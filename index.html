@@ -5,18 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO & Social Meta Tags (New Additions) -->
     <title>Poker Hand Battle: Texas Hold'em Hand Evaluator</title>
     <meta name="description" content="An interactive tool to battle two Texas Hold'em poker hands against a community board, instantly calculating the winner based on the best 5-card combination.">
     
-    <!-- Favicon (Using a simple placeholder) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🃏</text></svg>">
     
-    <!-- Open Graph / Social Sharing Meta Tags -->
     <meta property="og:title" content="Poker Hand Battle: Texas Hold'em Hand Evaluator">
     <meta property="og:description" content="An interactive tool to battle two Texas Hold'em poker hands against a community board, instantly calculating the winner based on the best 5-card combination.">
     <meta property="og:type" content="website">
-    <!-- Placeholder image for social media preview (1200x630 resolution recommended) -->
     <meta property="og:image" content="https://placehold.co/1200x630/1a4d2b/ffffff?text=Poker+Hand+Battle+App">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -24,6 +20,26 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'player-green': '#22c55e', // P1
+                        'player-red': '#ef4444',   // P2
+                        'player-blue': '#3b82f6',  // P3
+                        'player-yellow': '#eab308',// P4
+                        'player-purple': '#a855f7',// P5
+                        'player-pink': '#ec4899',  // P6
+                        'player-cyan': '#06b6d4',  // P7
+                        'player-orange': '#f97316',// P8
+                        'player-indigo': '#6366f1',// P9
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
 <body class="text-white p-4 antialiased">
@@ -35,50 +51,44 @@
             </h1>
         </header>
 
-        <main class="flex flex-col lg:flex-row justify-around items-center lg:items-start gap-8">
-
-            <div id="player1-panel"
-                class="w-full max-w-xs md:max-w-sm text-center p-4 rounded-xl border-2 border-transparent transition-all duration-500">
-                <h2 class="text-2xl font-semibold mb-4 text-green-400">Player 1</h2>
-                <div class="flex justify-center gap-4">
-                    <div class="card-selector-container" data-player="1" data-card-index="0"></div>
-                    <div class="card-selector-container" data-player="1" data-card-index="1"></div>
+        <main class="flex flex-col items-center gap-8">
+            
+            <div id="poker-table-container">
+                
+                <div id="players-container" class="player-positions">
+                    </div>
+                
+                <div id="board-container" class="board-center-area">
+                    <h2 class="text-lg font-semibold mb-2 text-amber-200">Community Cards</h2>
+                    <div class="flex justify-center gap-2">
+                        <div class="card-selector-container board-card" data-player="board" data-card-index="0"></div>
+                        <div class="card-selector-container board-card" data-player="board" data-card-index="1"></div>
+                        <div class="card-selector-container board-card" data-player="board" data-card-index="2"></div>
+                        <div class="card-selector-container board-card" data-player="board" data-card-index="3"></div>
+                        <div class="card-selector-container board-card" data-player="board" data-card-index="4"></div>
+                    </div>
                 </div>
-                <div id="player1-result" class="mt-4 text-lg h-8 font-semibold text-gray-300"></div>
-            </div>
 
-            <div class="w-full max-w-2xl text-center">
-                <h2 class="text-2xl font-semibold mb-4 text-amber-200">Community Cards (Flop, Turn, River)</h2>
-                <div class="grid grid-cols-3 md:grid-cols-5 gap-4">
-                    <div class="card-selector-container" data-player="board" data-card-index="0"></div>
-                    <div class="card-selector-container" data-player="board" data-card-index="1"></div>
-                    <div class="card-selector-container" data-player="board" data-card-index="2"></div>
-                    <div class="card-selector-container" data-player="board" data-card-index="3"></div>
-                    <div class="card-selector-container" data-player="board" data-card-index="4"></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-4 italic">Note: Selecting a card removes it from all other dropdowns.
-                </p>
-            </div>
-
-            <div id="player2-panel"
-                class="w-full max-w-xs md:max-w-sm text-center p-4 rounded-xl border-2 border-transparent transition-all duration-500">
-                <h2 class="text-2xl font-semibold mb-4 text-red-400">Player 2</h2>
-                <div class="flex justify-center gap-4">
-                    <div class="card-selector-container" data-player="2" data-card-index="0"></div>
-                    <div class="card-selector-container" data-player="2" data-card-index="1"></div>
-                </div>
-                <div id="player2-result" class="mt-4 text-lg h-8 font-semibold text-gray-300"></div>
             </div>
 
         </main>
 
         <footer class="text-center mt-8">
             <div id="winner-display" class="text-2xl md:text-3xl font-bold h-10 mb-4 transition-all"></div>
-            <div class="flex justify-center gap-4">
+            <div class="flex justify-center gap-4 flex-wrap">
                 <button id="evaluate-btn"
-                    class="bg-amber-500 hover:bg-amber-400 text-gray-900 font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200 disabled:bg-gray-600 disabled:cursor-not-allowed disabled:scale-100"
+                    class="bg-amber-500 hover:bg-amber-400 text-gray-900 font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200 disabled:bg-gray-600 disabled:cursor-not-allowed disabled:scale-100 mb-2 md:mb-0"
                     disabled>
                     Check Winner
+                </button>
+                <button id="add-player-btn"
+                    class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200 mb-2 md:mb-0">
+                    + Add Player
+                </button>
+                <button id="remove-player-btn"
+                    class="bg-red-700 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200 disabled:bg-gray-600 disabled:cursor-not-allowed disabled:scale-100 mb-2 md:mb-0"
+                    disabled>
+                    - Remove Player
                 </button>
                 <button id="reset-btn"
                     class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200">
@@ -89,6 +99,18 @@
 
     </div>
 
+    <template id="player-panel-template">
+        <div data-player-id="" 
+             class="player-panel absolute text-center p-3 rounded-xl border-2 border-transparent transition-all duration-500">
+            <h2 class="text-base font-semibold mb-1 player-name-color">Player X</h2>
+            <div class="flex justify-center gap-1 player-cards-container">
+                <div class="card-selector-container player-card" data-card-index="0"></div>
+                <div class="card-selector-container player-card" data-card-index="1"></div>
+            </div>
+            <div class="mt-2 text-sm h-6 font-semibold text-gray-300 player-result"></div>
+        </div>
+    </template>
+    
     <script src="./app.js"></script>
 </body>
 </html>
